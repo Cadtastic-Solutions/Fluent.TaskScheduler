@@ -13,14 +13,25 @@
     <Product>Fluent Task Scheduler</Product>
     <Copyright>Copyright © $(Company) $([System.DateTime]::Now.Year)</Copyright>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageProjectUrl>https://github.com/yourusername/Fluent.TaskScheduler</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/yourusername/Fluent.TaskScheduler</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/Cadtastic-Solutions/Fluent.TaskScheduler</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/Cadtastic-Solutions/Fluent.TaskScheduler.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
-    <PackageTags>windows;task-scheduler;automation;scheduling;fluent-api</PackageTags>
+    <PackageTags>windows;task-scheduler;automation;scheduling;fluent-api;dotnet;csharp</PackageTags>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageReleaseNotes>See https://github.com/Cadtastic-Solutions/Fluent.TaskScheduler/releases for release notes.</PackageReleaseNotes>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <AssemblyVersion>1.0.0.0</AssemblyVersion>
     <FileVersion>1.0.0.0</FileVersion>
     <Version>1.0.0</Version>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>FluentTaskScheduler.snk</AssemblyOriginatorKeyFile>
+    <DelaySign>false</DelaySign>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="README.md" Pack="true" PackagePath="\" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="TaskScheduler" Version="2.12.1" />

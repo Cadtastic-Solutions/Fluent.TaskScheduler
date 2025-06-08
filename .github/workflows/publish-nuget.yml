@@ -1,0 +1,68 @@
+name: Publish to NuGet
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version to publish'
+        required: true
+        type: string
+
+jobs:
+  publish:
+    runs-on: windows-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '8.0.x'
+        
+    - name: Restore dependencies
+      run: |
+        & "C:\Program Files\dotnet\dotnet.exe" restore
+      shell: pwsh
+      
+    - name: Build
+      run: |
+        & "C:\Program Files\dotnet\dotnet.exe" build --configuration Release --no-restore
+      shell: pwsh
+      
+    - name: Test
+      run: |
+        & "C:\Program Files\dotnet\dotnet.exe" test --configuration Release --no-build --verbosity normal
+      shell: pwsh
+      
+    - name: Pack
+      run: |
+        & "C:\Program Files\dotnet\dotnet.exe" pack --configuration Release --no-build --output ./artifacts
+      shell: pwsh
+      
+    - name: Sign packages (if certificate is available)
+      run: |
+        if ($env:SIGNING_CERT_THUMBPRINT) {
+          Get-ChildItem ./artifacts/*.nupkg | ForEach-Object {
+            & "C:\Program Files\dotnet\dotnet.exe" nuget sign $_.FullName --certificate-store-name "My" --certificate-store-location "CurrentUser" --certificate-fingerprint $env:SIGNING_CERT_THUMBPRINT --timestamper "http://timestamp.digicert.com"
+          }
+        } else {
+          Write-Host "No signing certificate configured, skipping package signing"
+        }
+      env:
+        SIGNING_CERT_THUMBPRINT: ${{ secrets.SIGNING_CERT_THUMBPRINT }}
+      shell: pwsh
+      
+    - name: Publish to NuGet
+      run: |
+        & "C:\Program Files\dotnet\dotnet.exe" nuget push ./artifacts/*.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate
+      shell: pwsh
+      
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: nuget-packages
+        path: ./artifacts/*.nupkg 
