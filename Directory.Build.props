@@ -1,0 +1,12 @@
+<Project>
+  <PropertyGroup>
+    <LangVersion>12.0</LangVersion>
+    <Nullable>enable</Nullable>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningsAsErrors />
+    <WarningsNotAsErrors />
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+	<!-- Missing XML comment for publicly visible type or member; Platform compatibility warnings for Windows-only APIs -->
+    <NoWarn>$(NoWarn);CS1591;CA1416</NoWarn> 
+  </PropertyGroup>
+</Project> 

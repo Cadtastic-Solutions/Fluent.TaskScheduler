@@ -1,0 +1,13 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# Always get the current time and date instructions
+
+Anytime you are updating documentation and there is a requirement to log the current date or last update of the document that you are generating, always look at the current systems date and time.
+Dates are to populated using the local date-time settings to the machine or environment you are operating with-in.
+
+If you are unsure about what date should be populated or what date time format to use, never assume, always as the end user.
+
+Date Format: "MM-dd-yyyy HH:mm:ss"
