@@ -6,7 +6,12 @@
     <WarningsAsErrors />
     <WarningsNotAsErrors />
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
-	<!-- Missing XML comment for publicly visible type or member; Platform compatibility warnings for Windows-only APIs -->
-    <NoWarn>$(NoWarn);CS1591;CA1416</NoWarn> 
+	<!-- 
+		CS1591: Missing XML comment for publicly visible type or member 
+		CA1416: Platform compatibility warnings for Windows-only APIs 
+		IDE0130: Namespace does not match folder structure.
+		MD036: Do not use emphisised text as headers.
+	-->
+    <NoWarn>$(NoWarn);CS1591;CA1416;IDE0130;MD036</NoWarn> 
   </PropertyGroup>
 </Project> 

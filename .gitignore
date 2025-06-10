@@ -371,3 +371,6 @@ FodyWeavers.xsd
 # Certificate files (for package signing)
 *.cer
 *.pfx
+
+# local NuGet packages folder
+_local
